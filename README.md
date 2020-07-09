@@ -5,3 +5,6 @@ be downloaded using cookiecutter for quick setup.
 
 For a fullstack project using React / Redux, please
 refer to the respective repository.
+
+Clone this repository for local use:  
+``cookiecutter <url>.git``
