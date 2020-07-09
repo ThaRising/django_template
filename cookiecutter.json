@@ -1,5 +1,6 @@
 {
   "author": "ThaRising",
   "email": "mail@domain.com",
-  "project_name": "DjangoProject"
+  "project_name": "DjangoProject",
+  "secret_key": ""
 }
