@@ -8,6 +8,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    '{{cookiecutter.project_name}}.apps.example',
 ]
 
 DATABASES = {
@@ -19,7 +21,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
-SECRET_KEY = 'y&h*lqvzi1$l)4wbbzc587^(u+o)&is=oy1seyc0n+0ad$w_tr'
+SECRET_KEY = '{{cookiecutter.secret_key}}'
 DEBUG = False
 
 ALLOWED_HOSTS = []
