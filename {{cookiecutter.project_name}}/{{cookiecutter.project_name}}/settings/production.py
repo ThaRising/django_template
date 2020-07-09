@@ -21,7 +21,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
-SECRET_KEY = '{{cookiecutter.secret_key}}'
+SECRET_KEY = ""
 DEBUG = False
 
 ALLOWED_HOSTS = []
