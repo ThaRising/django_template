@@ -20,7 +20,7 @@ if __name__ == '__main__':
     with open(SETTINGS_FILE, "r") as fin:
         contents = fin.readlines()
 
-    check_contents = [[ln.strip() for ln in line][0] for line in contents]
+    check_contents = [[ln.split() for ln in line][0].strip() for line in contents]  # noqa
 
     contents[find_key_linenr(check_contents)] = f"SECRET_KEY = {secrets.token_hex()}\n"
     with open(SETTINGS_FILE, "w") as fout:
