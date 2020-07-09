@@ -21,7 +21,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
-SECRET_KEY = ""
+SECRET_KEY = ''
 DEBUG = False
 
 ALLOWED_HOSTS = []

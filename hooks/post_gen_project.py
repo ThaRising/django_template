@@ -2,27 +2,22 @@
 from pathlib import Path
 import secrets
 import sys
+import re
 
 PROJECT_DIRECTORY = Path.cwd()
 DJANGO_DIR = Path(PROJECT_DIRECTORY) / "{{cookiecutter.project_name}}"
 SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 
-
-def find_key_linenr(content: list) -> int:
-    for i, line in enumerate(content):
-        print(line)
-        if line == "SECRET_KEY":
-            return i
-
-
 if __name__ == '__main__':
-    print(SETTINGS_FILE)
     with open(SETTINGS_FILE, "r") as fin:
         contents = fin.readlines()
 
-    check_contents = [[ln.split() for ln in line][0].strip() for line in contents]  # noqa
+    secret_key_line_index = [
+        i for i, ln in enumerate(contents) if re.match(r"SECRET_KEY", ln)
+    ][0]
+    contents[secret_key_line_index] = f"SECRET_KEY = '{secrets.token_hex()}'\n"
 
-    contents[find_key_linenr(check_contents)] = f"SECRET_KEY = {secrets.token_hex()}\n"
     with open(SETTINGS_FILE, "w") as fout:
         fout.writelines(contents)
+
     sys.exit(0)
