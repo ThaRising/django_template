@@ -10,6 +10,7 @@ SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 
 def find_key_linenr(content: list) -> int:
     for i, line in enumerate(content):
+        print(line)
         if line == "SECRET_KEY":
             return i
 
