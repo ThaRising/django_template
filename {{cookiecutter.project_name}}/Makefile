@@ -16,3 +16,9 @@ format:
 	$(autoflake) -i
 	$(black)
 	$(flake8)
+
+.PHONY: help
+help:
+	@echo "Format your code by running 'make format'"
+	@echo "Formatting configuration can be found in:"
+	@echo "pyproject.toml, setup.cfg"
