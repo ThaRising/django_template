@@ -8,9 +8,9 @@ authors = ["{{cookiecutter.author}} <{{cookiecutter.email}}>"]
 python = "^3.8"
 django = "^3.0.8"
 djangorestframework = "^3.11.0"
+drf-yasg = "^1.17.1"
 
 [tool.poetry.dev-dependencies]
-cookiecutter = "^1.7.2"
 
 [tool.black]
 line-length = 80
