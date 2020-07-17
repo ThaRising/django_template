@@ -22,5 +22,6 @@ def validate_input_values(val_in: list) -> bool:
 
 if __name__ == '__main__':
     if not validate_input_values(validation):
+        print("The last specified value did not pass validation")
         sys.exit(1)
     sys.exit(0)
