@@ -7,7 +7,7 @@ Structure of this tuple is:
 """
 
 validation = [
-    ("{{cookiecutter.project_name}}", [r"/^[A-Za-z][A-Za-z0-9 -]*$/"])
+    ("{{cookiecutter.project_name}}", [r"^[a-zA-Z].*"])
 ]
 
 
