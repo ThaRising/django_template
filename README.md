@@ -10,7 +10,16 @@ Clone this repository for local use:
 ``cookiecutter <url>.git``
 
 View help for the included Makefile:  
-``make``
+``make``  
+
+HEADSUP!  
+Flake8 is required to already be installed
+in your local environment.  
+This is because Flake8 has to be installed
+for each version and inside of the base
+interpreter.  
+As such it is not included in the Poetry
+dependencies.
 
 This template includes a terraform
 version file.  
