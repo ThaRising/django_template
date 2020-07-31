@@ -2,6 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
+    '{{cookiecutter.project_name}}.custom',  # manage.py overrides
     '{{cookiecutter.project_name}}.application.CustomAdmin',  # default admin
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -11,6 +12,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     '{{cookiecutter.project_name}}.apps.example',
+    '{{cookiecutter.project_name}}.custom'
 ]
 
 DATABASES = {
