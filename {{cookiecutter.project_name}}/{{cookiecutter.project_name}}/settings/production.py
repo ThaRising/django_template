@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
+    'crispy_forms',
 
     '{{cookiecutter.project_name}}.apps.example',
 ]
