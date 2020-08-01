@@ -48,6 +48,9 @@ class Command(BaseCommand):
                        f"'{template_pack}/css/Bootstrap.css'" +
                        "%}>",
                        "<script src={% static " +
+                       "'jquery/jquery.min.js'" +
+                       "%}></script>",
+                       "<script src={% static " +
                        f"'{template_pack}/js/Bootstrap.js'" +
                        "%}></script>",
             )
