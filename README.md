@@ -9,7 +9,13 @@ and placed in the settings once setup
 has been completed.  
 
 Clone this repository for local use:  
-``cookiecutter <url>.git``
+``cookiecutter <url>.git``  
+
+Install dependencies (requires Poetry):  
+``poetry install``  
+
+Fetch static files:  
+``python manage.py get-media``  
 
 View help for the included Makefile:  
 ``make``  
@@ -30,22 +36,25 @@ Example:
 
 This template includes a terraform
 version file.  
-If you have Tfenv installed you install
-the correct Terraform CLI version via:  
+If you have Tfenv installed you can 
+install the correct Terraform CLI 
+version via:  
 ``tfenv install``
-
-Auto-generated OpenAPI docs are
-available at:  
-*/redoc*  
-
-The corresponding schemas can be found at:  
-*/swagger.json*  
-*/swagger.yaml*
 
 ## Features
 
 ### Integrated OpenAPI Docs
-See the overview above.
+Auto-generated OpenAPI docs are
+available at:  
+*/redoc*  
+
+The corresponding schemas,
+can be found at:  
+*/swagger.json*  
+*/swagger.yaml*
+
+### Ships with a Dockerfile
+Coming soon.
 
 ### More effective Backend folder structure
 This project templates folder structure
