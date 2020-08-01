@@ -1,30 +1,9 @@
-from django.core.management.commands import startapp
-from django.conf import settings
 from pathlib import Path
-from typing import Union, Tuple, Optional
 
+from django.conf import settings
+from django.core.management.commands import startapp
 
-def newlines(amount: Optional[int] = None) -> Union[Tuple[str], str]:
-    return tuple(
-        "" for _ in range(amount)
-    ) if amount is not None else ""
-
-
-def indent(indents: int, line_contents: str) -> str:
-    return "{line_contents: >{width}}".format(
-        line_contents=line_contents,
-        width=len(line_contents) + (indents*4)
-    )
-
-
-def write_file(base_dir: Path,
-               filename: str,
-               content: Union[tuple, list]) -> None:
-    with (base_dir / (
-            f"{filename}.py" if ".py" not in filename else filename
-    )).open("w") as fout:
-        for line in content:
-            fout.write(f"{line}\n")
+from ._utils import write_file, newlines, indent
 
 
 class Command(startapp.Command):
@@ -80,7 +59,7 @@ class Command(startapp.Command):
         (schemas / "__init__.py").touch()
         write_file(
             schemas,
-            "serializers",
+            "serializers.py",
             (
                 "from rest_framework import serializers",
                 *newlines(2),
@@ -89,7 +68,7 @@ class Command(startapp.Command):
         )
         write_file(
             schemas,
-            "models",
+            "models.py",
             (
                 "from django.db import models",
                 *newlines(2),
