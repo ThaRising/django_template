@@ -3,7 +3,7 @@ import sys
 
 """
 Structure of this tuple is:
-(variable_value, (validation_regexes))
+(variable_value, [validation_regexes])
 """
 
 validation = [
