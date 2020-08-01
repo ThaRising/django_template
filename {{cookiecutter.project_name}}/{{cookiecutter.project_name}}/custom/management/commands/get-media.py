@@ -42,6 +42,16 @@ class Command(BaseCommand):
             if bootstrap_dir.is_dir():
                 bootstrap_dir.rename(MEDIA / template_pack)
 
+            # Generate templates safe for use with crispy-forms
+            stylesheets = (
+                       "<link rel='stylesheet' href={% static " +
+                       f"'{template_pack}/css/Bootstrap.css'" +
+                       "%}>",
+                       "<script src={% static " +
+                       f"'{template_pack}/js/Bootstrap.js'" +
+                       "%}></script>",
+            )
+
             # Generate base.html file with the correct files included
             write_file(
                 Path(settings.BASE_DIR) / "templates",
@@ -54,23 +64,25 @@ class Command(BaseCommand):
                     indent(1, "<meta name='viewport' content='width=device-width, user-scalable=no, "
                               "initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>"),
                     indent(1, "<meta http-equiv='X-UA-Compatible' content='ie=edge'>"),
-                    indent(1, "<title>{% block title %}{% endblock %}</title>"),
+                    indent(1, "<title>{% block title %}{% endblock title %}</title>"),
                     indent(1, "{% load static %}"),
-                    indent(1,
-                           "<link rel='stylesheet' href={% static " +
-                           f"'{template_pack}/css/Bootstrap.css'" +
-                           "%}>"
-                           ),
-                    indent(1,
-                           "<script src={% static " +
-                           f"'{template_pack}/js/Bootstrap.js'" +
-                           "%}></script>"
-                           ),
+                    *[indent(1, line) for line in stylesheets],
+                    indent(1, "{% block extrahead %}{% endblock extrahead %}"),
                     "</head>",
                     "<body>",
-                    "{% block body %}",
-                    "{% endblock body %}",
+                    "{% block content %}",
+                    "{% endblock content %}",
                     "</body>",
                     "</html>"
+                )
+            )
+
+            # Generate standalone styles.html file for use in admin
+            write_file(
+                Path(settings.BASE_DIR) / "templates" / "crispy",
+                "styles.html",
+                (
+                    "{% load static %}",
+                    *stylesheets,
                 )
             )
