@@ -9,10 +9,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
     'rest_framework',
     'drf_yasg',
+
     '{{cookiecutter.project_name}}.apps.example',
-    '{{cookiecutter.project_name}}.custom'
 ]
 
 DATABASES = {
@@ -35,6 +37,8 @@ STATICFILES_DIRS = [
 
 SECRET_KEY = ''
 DEBUG = False
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 ALLOWED_HOSTS = []
 
