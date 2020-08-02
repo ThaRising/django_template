@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from .docs.openapi import schema_view
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,3 +14,7 @@ urlpatterns = [
         name='schema-redoc'),
     url(r'^api-auth/', include('rest_framework.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
