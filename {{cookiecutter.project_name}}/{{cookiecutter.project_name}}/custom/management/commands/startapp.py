@@ -47,6 +47,16 @@ class Command(startapp.Command):
                 "# Register your models here"
             )
         )
+        write_file(
+            APP_ROOT,
+            "views.py",
+            (
+                "from django.views import View",
+                "from rest_framework import mixins, viewsets",
+                *newlines(2),
+                "# Your views here"
+            )
+        )
 
         # Create the migrations directory
         migrations = APP_ROOT / "migrations"

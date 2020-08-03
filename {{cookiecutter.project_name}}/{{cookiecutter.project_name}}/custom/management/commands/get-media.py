@@ -45,15 +45,15 @@ class Command(BaseCommand):
             # Generate templates safe for use with crispy-forms
             # {% raw %}
             stylesheets = (
-                       "<link rel='stylesheet' href={% static " +
+                       "<link rel='stylesheet' href='{% static " +
                        f"'{template_pack}/css/Bootstrap.css'" +
-                       "%}>",
-                       "<script src={% static " +
+                       "%}'>",
+                       "<script src='{% static " +
                        "'jquery/jquery.min.js'" +
-                       "%}></script>",
-                       "<script src={% static " +
+                       "%}'></script>",
+                       "<script src='{% static " +
                        f"'{template_pack}/js/Bootstrap.js'" +
-                       "%}></script>",
+                       "%}'></script>",
             )
 
             # Generate base.html file with the correct files included
