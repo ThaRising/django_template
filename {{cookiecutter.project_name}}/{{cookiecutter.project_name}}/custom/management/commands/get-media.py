@@ -43,6 +43,7 @@ class Command(BaseCommand):
                 bootstrap_dir.rename(MEDIA / template_pack)
 
             # Generate templates safe for use with crispy-forms
+            # {% raw %}
             stylesheets = (
                        "<link rel='stylesheet' href={% static " +
                        f"'{template_pack}/css/Bootstrap.css'" +
@@ -89,3 +90,5 @@ class Command(BaseCommand):
                     *stylesheets,
                 )
             )
+
+            # {% endraw %}
