@@ -38,6 +38,7 @@ STATICFILES_DIRS = [
 
 SECRET_KEY = ''
 DEBUG = False
+AUTH_USER_MODEL = 'custom_overrides.User'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
