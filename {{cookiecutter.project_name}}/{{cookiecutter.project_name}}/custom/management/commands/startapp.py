@@ -22,6 +22,7 @@ class Command(startapp.Command):
                 *newlines(2),
                 "class CoreConfig(AppConfig):",
                 indent(1, f"name = '{APP_ROOT.name}'"),
+                indent(1, f"label = '{APP_ROOT.name}'"),
             )
         )
         write_file(
@@ -64,11 +65,17 @@ class Command(startapp.Command):
         (migrations / "__init__.py").touch()
 
         # Create the schemas directory
-        schemas = APP_ROOT / "schemas"
-        schemas.mkdir()
-        (schemas / "__init__.py").touch()
+        models = APP_ROOT / "models"
+        models.mkdir()
         write_file(
-            schemas,
+            models,
+            "__init__.py",
+            (
+                "from .models import *",
+            )
+        )
+        write_file(
+            models,
             "serializers.py",
             (
                 "from rest_framework import serializers",
@@ -77,7 +84,7 @@ class Command(startapp.Command):
             )
         )
         write_file(
-            schemas,
+            models,
             "models.py",
             (
                 "from django.db import models",
