@@ -1,5 +1,12 @@
 from django.views import View
-from rest_framework import mixins, viewsets
+from django.shortcuts import authenticate, login
 
 
-# Your views here
+class UserView(View):
+    def post(self, request):
+        email, password = request.POST.get("email"), request.POST.get("password")
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            return login(request, user)
+        else:
+            return {"success": False}
