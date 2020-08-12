@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import authenticate, login
+from django.conrib.auth import authenticate, login
 
 
 class UserView(View):
