@@ -15,7 +15,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'crispy_forms',
 
-    '{{cookiecutter.project_name}}.apps.example',
+    # User defined apps
+    '{{cookiecutter.project_name}}.apps.users',
 ]
 
 DATABASES = {
@@ -38,7 +39,7 @@ STATICFILES_DIRS = [
 
 SECRET_KEY = ''
 DEBUG = False
-AUTH_USER_MODEL = 'custom.User'
+AUTH_USER_MODEL = 'users.User'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
