@@ -1,12 +1,33 @@
-from django.views import View
-from django.conrib.auth import authenticate, login
+from rest_framework.authtoken import views as auth_views
+from rest_framework.compat import coreapi, coreschema
+from rest_framework.schemas import ManualSchema
+
+from .models.serializers import EmailAuthSerializer
 
 
-class UserView(View):
-    def post(self, request):
-        email, password = request.POST.get("email"), request.POST.get("password")
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            return login(request, user)
-        else:
-            return {"success": False}
+class ObtainTokenView(auth_views.ObtainAuthToken):
+    serializer_class = EmailAuthSerializer
+    if coreapi is not None and coreschema is not None:
+        schema = ManualSchema(
+            fields=[
+                coreapi.Field(
+                    name="email",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Email",
+                        description="Valid email for authentication",
+                    ),
+                ),
+                coreapi.Field(
+                    name="password",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Password",
+                        description="Valid password for authentication",
+                    ),
+                ),
+            ],
+            encoding="application/json",
+        )
