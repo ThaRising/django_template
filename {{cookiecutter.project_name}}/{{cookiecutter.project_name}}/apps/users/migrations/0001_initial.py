@@ -1,4 +1,4 @@
-import TestingTemplateChanges.apps.users.models.models
+import {{cookiecutter.project_name}}.apps.users.models.models
 from django.db import migrations, models
 import django.utils.timezone
 
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             managers=[
-                ('objects', TestingTemplateChanges.apps.users.models.UserManager()),
+                ('objects', {{cookiecutter.project_name}}.apps.users.models.UserManager()),
             ],
         ),
     ]
