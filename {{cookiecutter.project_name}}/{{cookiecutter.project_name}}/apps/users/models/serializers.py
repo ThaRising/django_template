@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate
 
 
-class EmailAuthSerializer(serializers.Serializer):
+class EmailAuthSerializer(serializers.Serializer):  # noqa
     email = serializers.EmailField(label=_("Email"))
     password = serializers.CharField(
         label=_("Password"),
