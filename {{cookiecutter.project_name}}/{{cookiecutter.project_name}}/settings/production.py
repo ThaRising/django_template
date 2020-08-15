@@ -33,7 +33,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        '{{cookiecutter.project_name}}.apps.users.auth.ExpiringTokenAuthentication',
     ],
 }
 
@@ -45,6 +45,9 @@ STATICFILES_DIRS = [
 SECRET_KEY = ''
 DEBUG = False
 AUTH_USER_MODEL = 'users.User'
+
+# Token expiration time in Minutes
+DRF_TOKEN_EXPIRATION_TIME = 3 * 60
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
