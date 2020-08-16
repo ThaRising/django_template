@@ -53,6 +53,12 @@ can be found at:
 */swagger.json*  
 */swagger.yaml*
 
+### Out of the Box JWT
+This project has drf-simplejwt
+preconfigured.  
+See the root urlconf for the respective
+URL paths.
+
 ### Ships with a Dockerfile
 Coming soon.
 
