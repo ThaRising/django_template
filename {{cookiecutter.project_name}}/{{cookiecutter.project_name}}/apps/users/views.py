@@ -2,9 +2,9 @@ from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView as TokenObtainPairView_,
-    TokenRefreshView as TokenRefreshView_,
-    TokenVerifyView as TokenVerifyView_,
+    TokenObtainPairView as __TokenObtainPairView,
+    TokenRefreshView as __TokenRefreshView,
+    TokenVerifyView as __TokenVerifyView,
 )
 
 
@@ -18,7 +18,7 @@ from rest_framework_simplejwt.views import (
         security=[]
     )
 )
-class TokenObtainPairView(TokenObtainPairView_):
+class TokenObtainPairView(__TokenObtainPairView):
     pass
 
 
@@ -31,7 +31,7 @@ class TokenObtainPairView(TokenObtainPairView_):
         security=[]
     )
 )
-class TokenRefreshView(TokenRefreshView_):
+class TokenRefreshView(__TokenRefreshView):
     pass
 
 
@@ -44,5 +44,5 @@ class TokenRefreshView(TokenRefreshView_):
         security=[]
     )
 )
-class TokenVerifyView(TokenVerifyView_):
+class TokenVerifyView(__TokenVerifyView):
     pass
