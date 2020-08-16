@@ -1,5 +1,6 @@
 import os
 from {{cookiecutter.project_name}}.docs.settings import *
+from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
@@ -37,6 +38,13 @@ REST_FRAMEWORK = {
     ],
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
@@ -45,9 +53,6 @@ STATICFILES_DIRS = [
 SECRET_KEY = ''
 DEBUG = False
 AUTH_USER_MODEL = 'users.User'
-
-# Token expiration time in Minutes
-DRF_TOKEN_EXPIRATION_TIME = 3 * 60
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
