@@ -34,7 +34,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        '{{cookiecutter.project_name}}.apps.users.auth.ExpiringTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
 
