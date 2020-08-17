@@ -1,5 +1,5 @@
 import os
-from {{cookiecutter.project_name}}.docs.settings import *
+from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,7 +14,6 @@ INSTALLED_APPS = [
 
     # Third party apps
     'rest_framework',
-    'rest_framework.authtoken',
     'drf_yasg',
     'crispy_forms',
 
