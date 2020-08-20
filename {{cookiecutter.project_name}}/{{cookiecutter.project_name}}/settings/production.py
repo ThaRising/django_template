@@ -1,4 +1,4 @@
-import os
+import os, django
 from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
 
@@ -74,6 +74,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, "templates"),
+            os.path.join(django.__path__[0] + '/forms/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -86,6 +87,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 WSGI_APPLICATION = '{{cookiecutter.project_name}}.wsgi.application'
 
