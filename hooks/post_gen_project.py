@@ -27,7 +27,7 @@ if __name__ == '__main__':
     with open(IGNORE_FILE, "r") as fin:
         contents = fin.readlines()
 
-    contents.append(f"{KEYS_FILE!s}\n")
+    contents.append(f"{DJANGO_DIR.name}/{DJANGO_DIR.name}/settings/{KEYS_FILE.name}\n")
 
     with open(IGNORE_FILE, "w") as fout:
         fout.writelines(contents)
