@@ -8,6 +8,7 @@ PROJECT_DIRECTORY = Path.cwd()
 DJANGO_DIR = Path(PROJECT_DIRECTORY) / "{{cookiecutter.project_name}}"
 SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 KEYS_FILE = DJANGO_DIR / "settings" / "keys.py"
+IGNORE_FILE = DJANGO_DIR.parent.parent / ".gitignore"
 
 if __name__ == '__main__':
     # Generate Secret Key
@@ -23,12 +24,12 @@ if __name__ == '__main__':
         fout.writelines(contents)
 
     # Exclude keys file from git
-    with open(DJANGO_DIR / ".gitignore", "r") as fin:
+    with open(IGNORE_FILE, "r") as fin:
         contents = fin.readlines()
 
     contents.append(f"{KEYS_FILE!s}\n")
 
-    with open(DJANGO_DIR / ".gitignore", "w") as fout:
+    with open(IGNORE_FILE, "w") as fout:
         fout.writelines(contents)
 
     sys.exit(0)
