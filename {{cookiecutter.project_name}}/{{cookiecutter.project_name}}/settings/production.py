@@ -1,4 +1,5 @@
-import os, django
+import os
+import django
 from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
 
@@ -49,7 +50,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
 ]
 
-SECRET_KEY = ''
 DEBUG = False
 AUTH_USER_MODEL = 'users.User'
 
