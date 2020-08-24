@@ -8,7 +8,7 @@ PROJECT_DIRECTORY = Path.cwd()
 DJANGO_DIR = Path(PROJECT_DIRECTORY) / "{{cookiecutter.project_name}}"
 SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 KEYS_FILE = DJANGO_DIR / "settings" / "keys.py"
-IGNORE_FILE = DJANGO_DIR.parent.parent / ".gitignore"
+IGNORE_FILE = DJANGO_DIR.parent / ".gitignore"
 
 if __name__ == '__main__':
     # Generate Secret Key
