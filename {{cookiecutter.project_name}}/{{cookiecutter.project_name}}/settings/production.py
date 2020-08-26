@@ -2,6 +2,7 @@ import os
 import django
 from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
+from .keys import *  # noqa
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
