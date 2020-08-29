@@ -1,33 +1,48 @@
-from rest_framework.authtoken import views as auth_views
-from rest_framework.compat import coreapi, coreschema
-from rest_framework.schemas import ManualSchema
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
-from .models.serializers import EmailAuthSerializer
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView as __TokenObtainPairView,
+    TokenRefreshView as __TokenRefreshView,
+    TokenVerifyView as __TokenVerifyView,
+)
 
 
-class ObtainTokenView(auth_views.ObtainAuthToken):
-    serializer_class = EmailAuthSerializer
-    if coreapi is not None and coreschema is not None:
-        schema = ManualSchema(
-            fields=[
-                coreapi.Field(
-                    name="email",
-                    required=True,
-                    location='form',
-                    schema=coreschema.String(
-                        title="Email",
-                        description="Valid email for authentication",
-                    ),
-                ),
-                coreapi.Field(
-                    name="password",
-                    required=True,
-                    location='form',
-                    schema=coreschema.String(
-                        title="Password",
-                        description="Valid password for authentication",
-                    ),
-                ),
-            ],
-            encoding="application/json",
-        )
+@method_decorator(
+    name="post", decorator=swagger_auto_schema(
+        operation_summary="Create Token",
+        operation_description="Takes a set of user credentials "
+                              "and returns an access and refresh JSON web"
+                              "token pair to prove the authentication of "
+                              "those credentials.",
+        security=[]
+    )
+)
+class TokenObtainPairView(__TokenObtainPairView):
+    pass
+
+
+@method_decorator(
+    name="post", decorator=swagger_auto_schema(
+        operation_summary="Create Refresh Token",
+        operation_description="Takes a refresh type JSON web token "
+                              "and returns an access type JSON web token "
+                              "if the refresh token is valid.",
+        security=[]
+    )
+)
+class TokenRefreshView(__TokenRefreshView):
+    pass
+
+
+@method_decorator(
+    name="post", decorator=swagger_auto_schema(
+        operation_summary="Verify Token",
+        operation_description="Takes a token and indicates if it is valid."
+                              " This view provides no information "
+                              "about a token's fitness for a particular use.",
+        security=[]
+    )
+)
+class TokenVerifyView(__TokenVerifyView):
+    pass

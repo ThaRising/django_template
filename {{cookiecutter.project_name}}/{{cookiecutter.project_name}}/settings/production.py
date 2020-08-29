@@ -1,4 +1,8 @@
 import os
+import django
+from {{cookiecutter.project_name}}.docs.settings import *  # noqa
+from datetime import timedelta
+from .keys import *  # noqa
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
@@ -12,7 +16,6 @@ INSTALLED_APPS = [
 
     # Third party apps
     'rest_framework',
-    'rest_framework.authtoken',
     'drf_yasg',
     'crispy_forms',
 
@@ -32,8 +35,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 STATIC_URL = '/static/'
@@ -41,7 +51,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
 ]
 
-SECRET_KEY = ''
 DEBUG = False
 AUTH_USER_MODEL = 'users.User'
 
@@ -66,6 +75,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, "templates"),
+            os.path.join(django.__path__[0] + '/forms/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,6 +88,8 @@ TEMPLATES = [
         },
     },
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 WSGI_APPLICATION = '{{cookiecutter.project_name}}.wsgi.application'
 
