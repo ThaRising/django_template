@@ -31,7 +31,11 @@ class Command(startapp.Command):
             (
                 "from django.urls import path",
                 "from rest_framework import routers",
-                *newlines(2),
+                "from django.apps import apps",
+                "from .apps import CoreConfig as CurrentApp",
+                *newlines(),
+                "app_name = CurrentApp.name",
+                newlines(),
                 "router = routers.SimpleRouter()",
                 newlines(),
                 "urlpatterns = []",
