@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .lib.admin import SortableAdminMixin
+from drizm_django_commons.admin import SortableAdminMenuMixin
 
 
-class SiteAdmin(SortableAdminMixin, admin.AdminSite):
+class SiteAdmin(SortableAdminMenuMixin, admin.AdminSite):
     site_header = "{{cookiecutter.project_name}} Administration"
     index_title = "{{cookiecutter.project_name}} Administration"
     site_title = "Administration"

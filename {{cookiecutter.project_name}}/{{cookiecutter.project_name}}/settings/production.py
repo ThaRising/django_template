@@ -6,7 +6,7 @@ from .keys import *  # noqa
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS = [
-    '{{cookiecutter.project_name}}.custom',  # manage.py overrides
+    'drizm_django_commons',  # manage.py overrides
     '{{cookiecutter.project_name}}.application.CustomAdmin',  # default admin
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
-    'crispy_forms',
 
     # User defined apps
     '{{cookiecutter.project_name}}.apps.users',
