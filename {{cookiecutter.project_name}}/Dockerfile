@@ -33,7 +33,7 @@ COPY ["pyproject.toml", "poetry.lock", "manage.py", "./"]
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-root --no-dev
 
-WORKDIR /application/DjangoCorsTests/
+WORKDIR /application/{{cookiecutter.project_name}}/
 COPY ["{{cookiecutter.project_name}}", "./"]
 
 # Set envvars
