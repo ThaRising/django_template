@@ -12,7 +12,7 @@ envsubst '${NGINX_PORT} ${NGINX_HOST}' < /etc/nginx/conf.d/default.conf.template
 
 # Own the application and static directories as well as the uwsgi.ini file to the nginx group
 # This way both nginx and uwsgi can access the applications files
-locations=("/application" "/var/django/projects/DjangoCorsTests/static" "/uwsgi.ini")
+locations=("/application" "/var/django/projects/{{cookiecutter.project_name}}/static" "/uwsgi.ini")
 
 for location in "${locations[@]}"; do
   chmod -R 770 "$location"
