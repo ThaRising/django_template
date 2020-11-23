@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 
     # User defined apps
     '{{cookiecutter.project_name}}.apps.users',
