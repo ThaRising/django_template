@@ -1,10 +1,13 @@
 from .production import *  # noqa
 
-DEBUG = True
+# We need to import under different names to avoid clashes,
+# with any other storage implementations from production.py
+from django.conf.global_settings import (
+    STATICFILES_STORAGE as DEFAULT_STATIC_STORAGE,
+    DEFAULT_FILE_STORAGE as DEFAULT_FILE_BACKEND
+)
 
-REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = [
-        'rest_framework.permissions.AllowAny'
-    ]
+DEBUG = True
 
 MIDDLEWARE = [
     # Activate CORS
@@ -31,3 +34,12 @@ MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 INTERNAL_IPS = [
     "127.0.0.1"
 ]
+ALLOWED_HOSTS = ["*"]
+
+# Just so any changes to e.g. external file storage,
+# do not affect our development server
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/django/projects/TimeManagerBackend/static/'  # noqa
+
+STATICFILES_STORAGE = DEFAULT_STATIC_STORAGE
+DEFAULT_FILE_STORAGE = DEFAULT_FILE_BACKEND

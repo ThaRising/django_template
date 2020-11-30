@@ -3,8 +3,14 @@ import django
 from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
 from .keys import *  # noqa
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEBUG = False
+TESTING = 'test' in sys.argv  # detect if we are running tests
+
+
+
 INSTALLED_APPS = [
     'drizm_django_commons',  # manage.py overrides
     '{{cookiecutter.project_name}}.application.CustomAdmin',  # default admin
@@ -22,57 +28,6 @@ INSTALLED_APPS = [
     # User defined apps
     '{{cookiecutter.project_name}}.apps.users',
 ]
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/django/projects/{{cookiecutter.project_name}}/static/'  # noqa
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "media"),
-]
-
-DEBUG = False
-AUTH_USER_MODEL = 'users.User'
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
-
-ALLOWED_HOSTS = []
-
-# CORS Configuration
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'OPTIONS',
-]
-CORS_EXPOSE_HEADERS = [
-    "Content-Disposition"
-]
-CORS_ALLOWED_ORIGINS = [
-    # domain of the site you're planning to host on here
-]
-CORS_ALLOW_CREDENTIALS = True
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,8 +39,91 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = '{{cookiecutter.project_name}}.urls'
 
+
+""" ORM Config """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
+
+""" Auth / Security Config """
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
+ALLOWED_HOSTS = [
+    # domain of the site you're planning to host on here
+]
+
+AUTH_USER_MODEL = 'users.User'
+
+
+
+""" CORS Configuration """
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+CORS_EXPOSE_HEADERS = [
+    "Content-Disposition"
+]
+CORS_ALLOWED_ORIGINS = [
+] + ALLOWED_HOSTS
+# This applies only to cookies, the integrated system
+# is using Header based Token-Auth
+CORS_ALLOW_CREDENTIALS = False
+# Anything longer than 10 minutes is pointless for REST
+CROS_PREFLIGHT_MAX_AGE = 600
+
+
+
+""" File Handling Config """
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/django/projects/{{cookiecutter.project_name}}/static/'  # noqa
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "media"),
+]
+
+
+
+""" Internationlization Config """
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+
+
+
+""" You probably wont need to touch these """
+ROOT_URLCONF = '{{cookiecutter.project_name}}.urls'
+WSGI_APPLICATION = '{{cookiecutter.project_name}}.wsgi.application'
+
+# Without the changes in FORM_RENDERER and TEMPLATE["DIRS"]
+# global template directories would not work properly
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -104,10 +142,7 @@ TEMPLATES = [
         },
     },
 ]
-
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
-
-WSGI_APPLICATION = '{{cookiecutter.project_name}}.wsgi.application'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -123,9 +158,3 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
