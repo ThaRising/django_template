@@ -20,7 +20,8 @@ urlpatterns = [
     re_path(r'^redoc/$',
             schema_view.with_ui('redoc', cache_timeout=0),
             name='schema-redoc'),
-    re_path(r'^api-auth/', include('rest_framework.urls')),
+    # Note that eh browsable API auth is absent,
+    # because it uses SessionAuth, while we use JWT
     re_path(r'^favicon\.ico$', favicon_view),
 
     path('tokens/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -30,6 +31,7 @@ urlpatterns = [
     # User defined URL paths
 ]
 
+# Add the DebugToolbar only in development mode
 if settings.DEBUG:
     import debug_toolbar
 
