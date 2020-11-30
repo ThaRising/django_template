@@ -85,15 +85,6 @@ unregister the "custom" application from
 INSTALLED_APPS or delete the folder, or
 whichever files you want.
 
-##### get-media
-This will download the necessary static
-files for the CRISPY_TEMPLATE_PACK
-specified.  
-
-It will also automatically generate a
-base.html template that includes these
-static files.
-
 ##### startapp
 This command has been overridden to
 automatically place your applications in
