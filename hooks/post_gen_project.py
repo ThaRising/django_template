@@ -32,4 +32,9 @@ if __name__ == '__main__':
     with open(IGNORE_FILE, "w") as fout:
         fout.writelines(contents)
 
+    # Create keys directory for service account keys, etc.
+    KEYS_FOLDER = PROJECT_DIRECTORY / "keys"
+    KEYS_FOLDER.mkdir()
+    (KEYS_FOLDER / ".gitkeep").touch()
+
     sys.exit(0)
