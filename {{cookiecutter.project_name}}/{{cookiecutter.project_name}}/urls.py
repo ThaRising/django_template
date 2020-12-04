@@ -24,9 +24,14 @@ urlpatterns = [
     # because it uses SessionAuth, while we use JWT
     re_path(r'^favicon\.ico$', favicon_view),
 
-    path('tokens/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('tokens/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('tokens/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    # JWT Token-Auth endpoints
+    path(
+        'tokens/',
+        include(
+            '{{cookiecutter.project_name}}.apps.tokens.urls',
+            namespace="tokens"
+        )
+    ),
 
     # User defined URL paths
 ]

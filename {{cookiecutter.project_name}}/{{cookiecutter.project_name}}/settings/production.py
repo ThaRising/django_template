@@ -24,9 +24,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
+
+    # Default apps
+    '{{cookiecutter.project_name}}.apps.users',
+    '{{cookiecutter.project_name}}.apps.tokens',
 
     # User defined apps
-    '{{cookiecutter.project_name}}.apps.users',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
