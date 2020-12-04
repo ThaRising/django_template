@@ -3,11 +3,6 @@ from django.urls import path, include, re_path
 from .docs.openapi import schema_view
 from django.conf import settings
 from django.views.generic.base import RedirectView
-from .apps.users.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
