@@ -64,6 +64,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'EXCEPTION_HANDLER':
+        '{{cookiecutter.project_name}}.lib.errors.handler.global_default_exception_handler'  # noqa
 }
 
 SIMPLE_JWT = {
