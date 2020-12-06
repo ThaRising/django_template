@@ -15,7 +15,7 @@ urlpatterns = [
     re_path(r'^redoc/$',
             schema_view.with_ui('redoc', cache_timeout=0),
             name='schema-redoc'),
-    # Note that eh browsable API auth is absent,
+    # Note that the browsable API auth is absent,
     # because it uses SessionAuth, while we use JWT
     re_path(r'^favicon\.ico$', favicon_view),
 
