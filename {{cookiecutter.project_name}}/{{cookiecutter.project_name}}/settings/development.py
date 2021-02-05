@@ -1,20 +1,30 @@
 from .production import *  # noqa
-
-# We need to import under different names to avoid clashes,
-# with any other storage implementations from production.py
-from django.conf.global_settings import (
-    STATICFILES_STORAGE as DEFAULT_STATIC_STORAGE,
-    DEFAULT_FILE_STORAGE as DEFAULT_FILE_BACKEND
-)
+from .keys import *  # noqa
 
 DEBUG = True
 
+ADMIN_EMAIL = 'root@root.com'
+ADMIN_PASSWORD = 'root'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'default',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+
     # Activate CORS
     'corsheaders.middleware.CorsMiddleware',
 
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -35,11 +45,4 @@ INTERNAL_IPS = [
     "127.0.0.1"
 ]
 ALLOWED_HOSTS = ["*"]
-
-# Just so any changes to e.g. external file storage,
-# do not affect our development server
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/django/projects/TimeManagerBackend/static/'  # noqa
-
-STATICFILES_STORAGE = DEFAULT_STATIC_STORAGE
-DEFAULT_FILE_STORAGE = DEFAULT_FILE_BACKEND
+INSTALLED_APPS.insert(0, 'whitenoise.runserver_nostatic')

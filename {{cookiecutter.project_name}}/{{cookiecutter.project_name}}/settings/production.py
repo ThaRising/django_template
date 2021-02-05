@@ -1,13 +1,18 @@
 import os
+
+import dj_database_url
 import django
 from {{cookiecutter.project_name}}.docs.settings import *  # noqa
 from datetime import timedelta
-from .keys import *  # noqa
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = False
 TESTING = 'test' in sys.argv  # detect if we are running tests
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
 
 
 
@@ -34,6 +39,7 @@ INSTALLED_APPS = [
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,10 +53,9 @@ MIDDLEWARE = [
 
 """ ORM Config """
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        conn_max_age=600, ssl_require=True
+    )
 }
 
 
@@ -76,7 +81,8 @@ SIMPLE_JWT = {
 }
 
 ALLOWED_HOSTS = [
-    # domain of the site you're planning to host on here
+    # Domain of the site you're planning to host on here
+    # '.herokuapp.com'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -95,8 +101,10 @@ CORS_ALLOW_METHODS = [
 CORS_EXPOSE_HEADERS = [
     "Content-Disposition"
 ]
-CORS_ALLOWED_ORIGINS = [
-] + ALLOWED_HOSTS
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    # Domain of the site you're planning to host on here
+    # r"^https://\w+\.herokuapp\.com$",
+]
 # This applies only to cookies, the integrated system
 # is using Header based Token-Auth
 CORS_ALLOW_CREDENTIALS = False
@@ -107,26 +115,29 @@ CROS_PREFLIGHT_MAX_AGE = 600
 
 """ File Handling Config """
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/django/projects/{{cookiecutter.project_name}}/static/'  # noqa
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
 ]
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
 
 
 
 """ Internationlization Config """
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
 
 
 
 """ You probably wont need to touch these """
 ROOT_URLCONF = '{{cookiecutter.project_name}}.urls'
 WSGI_APPLICATION = '{{cookiecutter.project_name}}.wsgi.application'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
 # Without the changes in FORM_RENDERER and TEMPLATE["DIRS"]
 # global template directories would not work properly
