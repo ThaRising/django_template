@@ -12,16 +12,21 @@ envsubst '${NGINX_PORT} ${NGINX_HOST}' < /etc/nginx/conf.d/default.conf.template
 
 # Own the application and static directories as well as the uwsgi.ini file to the nginx group
 # This way both nginx and uwsgi can access the applications files
-locations=("/application" "/var/django/projects/{{cookiecutter.project_name}}/static" "/uwsgi.ini")
+locations=("/application" "/uwsgi.ini")
 
 for location in "${locations[@]}"; do
   chmod -R 770 "$location"
-  chown -R root:nginx "$location"
+  chown -R root:www-data "$location"
 done
 
 # Configure user and group for uwsgi to run on
 uwsgi_user="uwsgi-django"
-useradd -G nginx --system --no-create-home "$uwsgi_user"
+useradd -G www-data --system --no-create-home "$uwsgi_user"
+
+if [ "$DJANGO_AUTO_SETUP" == 1 ]; then
+  python manage.py migrate --noinput
+  python manage.py collectstatic --noinput
+fi
 
 uwsgi /uwsgi.ini --uid "$(id -u $uwsgi_user)" --gid "$(id -g $uwsgi_user)" &
 exec "$@"
