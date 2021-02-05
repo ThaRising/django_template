@@ -18,12 +18,42 @@ class UserSerializer(serializers.Serializer):
         write_only=True,
         required=True
     )
+    first_name = serializers.CharField(
+        min_length=2,
+        max_length=150,
+        required=False,
+        allow_null=True
+    )
+    last_name = serializers.CharField(
+        min_length=2,
+        max_length=150,
+        required=False,
+        allow_null=True
+    )
 
     def create(self, validated_data):
         model = get_user_model()
         return model.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.password = validated_data.get("password", instance.password)
+        if "password" in validated_data:
+            new_password = validated_data.pop("password")
+            instance.set_password(new_password)
+
+        for field_name, value in validated_data.items():
+            setattr(
+                instance,
+                field_name,
+                value
+            )
+
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if not data.get("first_name"):
+            data["first_name"] = None
+        if not data.get("last_name"):
+            data["last_name"] = None
+        return data
