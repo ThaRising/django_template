@@ -3,6 +3,7 @@
 venv
 *.env
 .run
+keys
 
 # Exclude compiled files and caches
 __pycache__
@@ -15,3 +16,15 @@ __pycache__
 build
 dist
 *.egg-info
+
+# Exclude Terraform files
+.terraform/.terraform
+*.tfstate
+*.tfvars
+*.tfstate.backup
+terraform.plan
+
+# Exclude dev database and logs
+*.sqlite3
+*.log
+5000
