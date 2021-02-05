@@ -7,7 +7,7 @@ SWAGGER_SETTINGS = {
         }
     },
     "DEFAULT_AUTO_SCHEMA_CLASS":
-        "TimeManagerBackend.lib.openapi_schema_gen.ReadWriteAutoSchema",
+        "{{cookiecutter.project_name}}.lib.openapi_schema_gen.ReadWriteAutoSchema",
 }
 
 __all__ = ["SWAGGER_SETTINGS"]
