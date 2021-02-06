@@ -82,6 +82,10 @@ you can remove the following:
 The following environment
 variables need to be set
 for deployment:
+- ``DJANGO_SETTINGS_MODULE``
 - ``SECRET_KEY``
 - ``ADMIN_EMAIL``
 - ``ADMIN_PASSWORD``
+
+Finally, run ``make requirements``,
+to compile the ``requirements.txt`` file.
