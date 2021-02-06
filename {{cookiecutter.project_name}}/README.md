@@ -13,8 +13,7 @@ been performed.
 
 Otherwise,
 you will need to add a file for
-all the project related secrets.
-
+all the project related secrets.  
 To file is expected to be located at
 ``{{cookiecutter.project_name}}/settings/keys.py``
 
@@ -22,8 +21,7 @@ You must add the following variables:
 - SECRET_KEY = 'your-secret-key-here'
 
 For your convinience, these are
-used during local development.
-
+used during local development.  
 You will however, have to add them
 as environment variables for deployment.
 
@@ -65,7 +63,7 @@ from development to Heroku.
 
 If you do not wish to use this,
 you can remove the following:  
-- Profile
+- Procfile
 - runtime.txt
 - The package "dj-database-url" from the dependencies
 
