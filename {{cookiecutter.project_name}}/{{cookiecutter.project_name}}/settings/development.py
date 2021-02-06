@@ -1,3 +1,6 @@
+import socket
+from contextlib import closing
+
 from .production import *  # noqa
 from .keys import *  # noqa
 
@@ -16,6 +19,11 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
+    sock.settimeout(5)
+    current_port = int(DATABASES['default']['PORT'])
+    if sock.connect_ex(('localhost', current_port)) == 0:
+        DATABASES['default']['HOST'] = 'database'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
