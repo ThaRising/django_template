@@ -17,8 +17,8 @@ COPY ["pyproject.toml", "poetry.lock", "manage.py", "./"]
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-root --no-dev
 
-WORKDIR /application/BauerGurke/
-COPY ["BauerGurke", "./"]
+WORKDIR /application/{{cookiecutter.project_name}}/
+COPY ["{{cookiecutter.project_name}}", "./"]
 
 # Set envvars
 ENV NGINX_HOST localhost

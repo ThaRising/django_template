@@ -29,7 +29,7 @@ class TokenObtainPairView(__TokenObtainPairView):
                               "and returns an access and refresh JSON web"
                               "token pair to prove the authentication of "
                               "those credentials.<br>"
-                              "When the only argument is set to 'access', "
+                              "When the 'only' argument is set to 'access', "
                               "only an access token will be returned.",
         security=[],
         query_serializer=CustomTokenObtainPairSerializer.query_serializer(),

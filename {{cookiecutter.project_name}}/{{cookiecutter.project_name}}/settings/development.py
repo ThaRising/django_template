@@ -22,7 +22,7 @@ DATABASES = {
 with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
     sock.settimeout(5)
     current_port = int(DATABASES['default']['PORT'])
-    if sock.connect_ex(('localhost', current_port)) == 0:
+    if sock.connect_ex(('localhost', current_port)) != 0:
         DATABASES['default']['HOST'] = 'database'
 
 MIDDLEWARE = [

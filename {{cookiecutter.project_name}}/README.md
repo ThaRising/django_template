@@ -32,7 +32,7 @@ run the following commands for a
 quick setup:  
 ````bash
 cd docker
-docker-compose up --build
+docker-compose -p {{cookiecutter.project_name}} up --build
 poetry run python manage.py migrate
 poetry run python manage.py runserver
 ````
@@ -52,8 +52,20 @@ To set up a local, dockerized
 testing environment, do the following:  
 ````bash
 cd docker
-docker-compose -f docker-compose.yml -f docker-compose.srv.yml up --build --force-recreate
+docker-compose -p {{cookiecutter.project_name}} -f docker-compose.yml -f docker-compose.srv.yml up --build --force-recreate
 ````
+
+The server should now be
+available at ``localhost:8080``.
+
+You may get an error saying
+``"Permission denied ... postgres-data"``.  
+in that case you can either do
+``rm -rf ./postgres-data``,
+or remove the ``--force-recreate``
+argument from the run command.  
+This will cause data from previous runs
+to be persisted.
 
 ## Deployment
 
