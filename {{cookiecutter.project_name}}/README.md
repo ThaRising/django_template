@@ -18,7 +18,7 @@ To file is expected to be located at
 ``{{cookiecutter.project_name}}/settings/keys.py``
 
 You must add the following variables:  
-- SECRET_KEY = 'your-secret-key-here'
+- ``SECRET_KEY = 'your-secret-key-here'``
 
 For your convinience, these are
 used during local development.  
@@ -70,6 +70,6 @@ you can remove the following:
 The following environment
 variables need to be set
 for deployment:
-- SECRET_KEY
-- ADMIN_EMAIL
-- ADMIN_PASSWORD
+- ``SECRET_KEY``
+- ``ADMIN_EMAIL``
+- ``ADMIN_PASSWORD``
