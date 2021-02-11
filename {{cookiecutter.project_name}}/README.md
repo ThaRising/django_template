@@ -69,7 +69,7 @@ to be persisted.
 
 ## Deployment
 
-This file includes a full
+This project includes a full
 setup for a pipeline
 from development to Heroku.
 
