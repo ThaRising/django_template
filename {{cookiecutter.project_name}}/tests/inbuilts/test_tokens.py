@@ -1,3 +1,5 @@
+from functools import partial
+
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
@@ -21,15 +23,34 @@ class TestTokens(APITestCase):
         WHEN I ask to create a token pair
         THEN I should receive a valid access / refresh token pair
         """
-        *_, res = obtain_tokens(self, {
+        token_obtain = partial(obtain_tokens, self, {
             "email": self.user.email,
             "password": self.user_pw
         })
+
+        # Standard token request
+        *_, res = token_obtain()
         content = res.json()
-        assert res.status_code == status.HTTP_200_OK
         self.assertListEqual(
             list(content.keys()),
             ["refresh", "access"]
+        )
+
+        # Make sure that the 'only=both' option,
+        # is equal to a standard token obtain request
+        *_, res = token_obtain(query_args={"only": "both"})
+        new_content = res.json()
+        self.assertListEqual(
+            list(content.keys()),
+            list(new_content.keys())
+        )
+
+        # Ensure that this option only returns an access token
+        *_, res = token_obtain(query_args={"only": "access"})
+        content = res.json()
+        self.assertListEqual(
+            list(content.keys()),
+            ["access"]
         )
 
     def test020_verify(self):
