@@ -65,17 +65,6 @@ docker-compose -p {{cookiecutter.project_name | lower}} \
 The server should now be
 available at ``localhost:8080``.
 
-You may get an error saying
-``"Permission denied ... postgres-data"``.  
-in that case you simply need to run
-``rm -rf ./postgres-data``.
-
-This will however clear
-all data from previous runs,
-so you may instead want to
-run the docker-compose command
-as a superuser via for example ``sudo``.
-
 ## Testing
 
 To run local tests,
