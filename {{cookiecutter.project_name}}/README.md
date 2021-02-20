@@ -32,7 +32,9 @@ run the following commands for a
 quick setup:  
 ````bash
 cd docker
-docker-compose -p {{cookiecutter.project_name}} \
+docker-compose -p {{cookiecutter.project_name | lower}} \
+  -f docker-compose.yml \
+  -f docker-compose.vols.yml \
   up --build
 poetry run python manage.py migrate
 poetry run python manage.py runserver
@@ -53,7 +55,7 @@ To set up a local, dockerized
 testing environment, do the following:  
 ````bash
 cd docker
-docker-compose -p {{cookiecutter.project_name}} \
+docker-compose -p {{cookiecutter.project_name | lower}} \
   -f docker-compose.yml \
   -f docker-compose.vols.yml \
   -f docker-compose.srv.yml \
