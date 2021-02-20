@@ -18,3 +18,6 @@ docker-compose -p "$compose_namespace" \
   -f docker-compose.test.yml \
   up --build --detach
 )
+
+# Give the systems time to start up
+sleep 5
