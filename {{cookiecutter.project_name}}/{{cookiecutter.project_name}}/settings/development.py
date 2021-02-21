@@ -1,5 +1,5 @@
-from .keys import *  # noqa
 from .production import *  # noqa
+from .keys import *  # noqa
 
 DEBUG = True
 

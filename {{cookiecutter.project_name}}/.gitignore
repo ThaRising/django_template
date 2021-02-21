@@ -3,6 +3,9 @@
 venv
 *.env
 .run
+
+# Exclude key-files and confidential files
+.firebasekey
 keys
 
 # Exclude compiled files and caches
@@ -28,3 +31,10 @@ terraform.plan
 *.sqlite3
 *.log
 5000
+
+# Exclude all docker volumes
+docker/*
+!docker/docker-compose*.yml
+!docker/*entrypoint.sh
+!docker/*.dockerfile
+!docker/*.md
