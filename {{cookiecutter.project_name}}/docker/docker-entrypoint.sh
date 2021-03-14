@@ -21,15 +21,22 @@ for location in "${locations[@]}"; do
   chown -R root:www-data "$location"
 done
 
-# Configure user and group for uwsgi to run on
+# Create the user and group that uwsgi will run on
+# Only create the user if it does not already exist
 uwsgi_user="uwsgi-django"
-useradd -G www-data --system --no-create-home "$uwsgi_user"
+id -u "$uwsgi_user" &> /dev/null || \
+  useradd -G www-data --system --no-create-home "$uwsgi_user"
 
 if [ "${DJANGO_AUTO_SETUP:-0}" == 1 ]; then
+  echo 'Waiting for Service Startup.'
+  sleep 5  # we need to wait for the db to start up
   python manage.py migrate --noinput
   python manage.py collectstatic --noinput
 fi
 
-python -m pip install uwsgi  # for some reason we need to install this again
-uwsgi /uwsgi.ini --uid "$(id -u $uwsgi_user)" --gid "$(id -g $uwsgi_user)" &
+# for some reason we need to install this again
+python -m pip install uwsgi > /dev/null 2>&1
+uwsgi /uwsgi.ini \
+  --uid "$(id -u $uwsgi_user)" \
+  --gid "$(id -g $uwsgi_user)" & disown
 exec "$@"

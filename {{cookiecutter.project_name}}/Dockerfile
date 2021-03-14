@@ -33,12 +33,20 @@ COPY ./keys .
 
 WORKDIR /application/
 
+# Download statically linked tini
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static /tini
+RUN chmod +x /tini
+
 # Entrypoint compiles Nginx config & starts uWSGI
 COPY server/nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY server/uwsgi.ini /
 COPY docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
 
+# Wrap the default entrypoint in tini to get a proper PID 1 process
+ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
+
+# Start the nginx process
 CMD ["nginx", "-g", "daemon off;"]
 EXPOSE ${NGINX_PORT}
