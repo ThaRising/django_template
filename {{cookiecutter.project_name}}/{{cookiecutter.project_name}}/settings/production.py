@@ -28,7 +28,9 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
+    {% if cookiecutter.cors_integration|int %}
     'corsheaders',
+    {% endif %}
     'rest_framework_simplejwt.token_blacklist',
 
     # Default apps
@@ -38,10 +40,12 @@ INSTALLED_APPS = [
     # User defined apps
 ]
 MIDDLEWARE = [
+    {% if cookiecutter.cors_integration|int %}
+    'corsheaders.middleware.CorsMiddleware',
+    {% endif %}
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -89,6 +93,7 @@ AUTH_USER_MODEL = 'users.User'
 
 
 
+{% if cookiecutter.cors_integration|int %}
 """ CORS Configuration """
 CORS_ALLOW_METHODS = [
     'GET',
@@ -110,6 +115,7 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CORS_ALLOW_CREDENTIALS = False
 # Anything longer than 10 minutes is pointless for REST
 CROS_PREFLIGHT_MAX_AGE = 600
+{% endif %}
 
 
 
