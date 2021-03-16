@@ -3,14 +3,22 @@ from pathlib import Path
 import secrets
 import sys
 import re
+import os
 
 PROJECT_DIRECTORY = Path.cwd()
 DJANGO_DIR = Path(PROJECT_DIRECTORY) / "{{cookiecutter.project_name}}"
+TEST_DIR = Path(PROJECT_DIRECTORY) / "tests"
 SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 KEYS_FILE = DJANGO_DIR / "settings" / "keys.py"
 IGNORE_FILE = DJANGO_DIR.parent / ".gitignore"
 
+CORS_INTEGRATION = {{cookiecutter.cors_integration}}
+
 if __name__ == '__main__':
+    # Delete CORS related files if the option is not selected
+    if not CORS_INTEGRATION:
+        os.remove((TEST_DIR / "inbuilts" / "test_cors.py"))
+
     # Generate Secret Key
     with open(KEYS_FILE, "r") as fin:
         contents = fin.readlines()

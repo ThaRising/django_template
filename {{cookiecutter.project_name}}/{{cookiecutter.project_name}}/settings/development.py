@@ -18,26 +18,32 @@ DATABASES = {
 }
 
 MIDDLEWARE = [
+    {% if cookiecutter.cors_integration %}
+    # Activate CORS
+    'corsheaders.middleware.CorsMiddleware',
+    {% endif %}
+
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    # Activate CORS
-    'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
+    {% if cookiecutter.cors_integration %}
     # Let all CSRF checks pass that pass CORS
     'corsheaders.middleware.CorsPostCsrfMiddleware',
+    {% endif %}
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+{% if cookiecutter.cors_integration %}
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_REPLACE_HTTPS_REFERER = True
+{% endif %}
 
 INSTALLED_APPS += ["debug_toolbar"]
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
