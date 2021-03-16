@@ -18,7 +18,7 @@ DATABASES = {
 }
 
 MIDDLEWARE = [
-    {% if cookiecutter.cors_integration %}
+    {% if cookiecutter.cors_integration|int %}
     # Activate CORS
     'corsheaders.middleware.CorsMiddleware',
     {% endif %}
@@ -30,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
-    {% if cookiecutter.cors_integration %}
+    {% if cookiecutter.cors_integration|int %}
     # Let all CSRF checks pass that pass CORS
     'corsheaders.middleware.CorsPostCsrfMiddleware',
     {% endif %}
@@ -40,7 +40,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-{% if cookiecutter.cors_integration %}
+{% if cookiecutter.cors_integration|int %}
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_REPLACE_HTTPS_REFERER = True
 {% endif %}

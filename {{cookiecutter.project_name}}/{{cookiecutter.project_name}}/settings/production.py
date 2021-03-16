@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
-    {% if cookiecutter.cors_integration %}
+    {% if cookiecutter.cors_integration|int %}
     'corsheaders',
     {% endif %}
     'rest_framework_simplejwt.token_blacklist',
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     # User defined apps
 ]
 MIDDLEWARE = [
-    {% if cookiecutter.cors_integration %}
+    {% if cookiecutter.cors_integration|int %}
     'corsheaders.middleware.CorsMiddleware',
     {% endif %}
     'django.middleware.security.SecurityMiddleware',
@@ -93,7 +93,7 @@ AUTH_USER_MODEL = 'users.User'
 
 
 
-{% if cookiecutter.cors_integration %}
+{% if cookiecutter.cors_integration|int %}
 """ CORS Configuration """
 CORS_ALLOW_METHODS = [
     'GET',

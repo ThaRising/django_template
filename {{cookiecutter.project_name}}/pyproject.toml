@@ -12,7 +12,7 @@ drf-yasg = "1.20.0"
 Pillow = "^8.0.1"
 django-debug-toolbar = "^2.2"
 djangorestframework-simplejwt = "^4.4.0"
-{% if cookiecutter.cors_integration %}
+{% if cookiecutter.cors_integration|int %}
 django-cors-headers = "^3.5.0"
 {% endif %}
 drizm-django-commons = "^0.3.0"

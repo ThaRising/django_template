@@ -12,7 +12,7 @@ SETTINGS_FILE = DJANGO_DIR / "settings" / "production.py"
 KEYS_FILE = DJANGO_DIR / "settings" / "keys.py"
 IGNORE_FILE = DJANGO_DIR.parent / ".gitignore"
 
-CORS_INTEGRATION = {{cookiecutter.cors_integration}}
+CORS_INTEGRATION = {{cookiecutter.cors_integration|int}}
 
 if __name__ == '__main__':
     # Delete CORS related files if the option is not selected

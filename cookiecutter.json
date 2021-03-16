@@ -2,5 +2,5 @@
   "author": "ThaRising",
   "email": "mail@domain.com",
   "project_name": "DjangoProject",
-  "cors_integration": [true, false]
+  "cors_integration": [0, 1]
 }
